@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<pre id=chat></pre>
+<form id=messageForm><input id=messageInput></form>
+<script>
+
+messageForm.onsubmit = e => {
+  // Stop the page from reloading
+  e.preventDefault();
+
+  const message = messageInput.value;
+  messageInput.value = '';
+
+  reserve.broadcast({
+    // I'm adding "chat." to the name to make it easier to tell
+    // apart messages from different demos on the same server.
+    name: 'chat.message',
+    message: message,
+  });
+};
+
+window.addEventListener('broadcast', e => {
+  const broadcast = e.detail;
+  if (broadcast.name != 'chat.message')
+    return;
+  chat.textContent += broadcast.message;
+  chat.textContent += '\n';
+});
+
+</script>
