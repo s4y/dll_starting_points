@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<style>
+
+#fountain {
+  position: absolute;
+  top: 100vh;
+  left: 50vw;
+  width: 0;
+  height: 0;
+}
+
+#fountain > button {
+  position: absolute;
+}
+
+</style>
+<div id=fountain></div>
+<script>
+
+let buttons = [];
+
+const onAnimationFrame = () => {
+  requestAnimationFrame(onAnimationFrame);
+  if (buttons.length < 50 && Math.random() < 0.1) {
+    const button = {
+      element: document.createElement('button'),
+      x: 0,
+      y: 0,
+      xSpeed: Math.random() * 2 - 1,
+      ySpeed: -7 + Math.random(),
+      rotation: 0,
+      rotationSpeed: Math.random() * 2 - 1,
+    }
+    button.element.textContent = 'YEET';
+
+    button.element.onmousedown = () => {
+      button.ySpeed += -10;
+    };
+
+    fountain.appendChild(button.element);
+    buttons.push(button);
+  }
+
+  for (const button of buttons) {
+    button.x += button.xSpeed;
+    button.y += button.ySpeed;
+    button.rotation += button.rotationSpeed;
+
+    button.ySpeed += 0.05;
+
+    button.element.style.transform = `translate(${button.x}px, ${button.y}px) rotate(${button.rotation}deg)`;
+  }
+
+  buttons = buttons.filter(button => {
+    if (button.y < 10) {
+      return true;
+    }
+    fountain.removeChild(button.element);
+    return false;
+  });
+};
+
+onAnimationFrame();
+
+</script>
