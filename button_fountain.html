@@ -36,7 +36,13 @@ const onAnimationFrame = () => {
       rotation: 0,
       rotationSpeed: Math.random() * 2 - 1,
     }
-    button.element.textContent = 'YEET';
+
+    // creates a list of strings
+    const words = ['digital', 'love', 'languages', '❀', '☹︎☻☺︎', '*:・ﾟ✧','♡'];
+    // creates a variable that equals a random string from the list abobve
+    const randomWordForButton = words[Math.floor(Math.random() * words.length)];
+    // sets the text of the current button to be the random string from our list of words
+    button.element.textContent = randomWordForButton;
 
     button.element.onmousedown = () => {
       button.ySpeed += -10;
