@@ -1,9 +1,30 @@
 <!DOCTYPE html>
+<head>
+
+</head>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap');
+
+.eagle-lake-regular {
+  font-family: "Eagle Lake", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  height: 100%;
+  box-shadow: inset 0 0 1000px darkslateblue;
+}
 
 body {
-  /* Hide the scroll bar, otherwise it will appear and disappear as buttons move */
+  /* Overflow hidden hides the scroll bar, otherwise it will appear and disappear as buttons move */
   overflow: hidden;
+  background-color: rgb(95, 45, 45);
+  min-height: 100%;
+  margin: 0;
+  /* https://maxbittker.github.io/broider/ */
+  border-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAYAAAAcaxDBAAAAAXNSR0IArs4c6QAAAptJREFUeF7tmsGSgzAMQ+n/f/TudGYPhbYIIQXo9vXqxLFfFMdAbxO/KoFb1RvOJoCWRQBQgE4/gsGpIjl18Z3iAOhOcO+mARSgXQKpopbzVZlK14uyV8FFzv8mpwkCdLELAG3I8sEHQEOgVzuibjxR+iNqqJtAqmAFwI1H+Vu1AzTC9zwZoB8AdBli+0in/oaWgBEKBWhZ9QAFaI9A48inNa2taFUjU/vwtgmgD4hR6PT0XU0pGIWKlzVLUQ0HerUjrW4QF4gar+yzeLYceYDOt3CVGUCnp6+oUQkA6AWAqk1olwhVM5Vd1cDUHtdQgK5soYJzn6p2sP2koxTn2lX8qR2FjuxLXylU7ZhS5BbVuypLxh+aD0Cft8rdAHnkXYfu+ERte+a68bnjASp2BaCmbBUwZbffNrkO3fFm/vXhKl5lB+jINmlJ9xtuebfNqyvUDSAdXz/T5UvHArylCbcc7nhUBWhZAQAF6HsCW468WyPdEnG0Qt18rPEAzV9PzhgCFKD1CuGWqNXxIxRq1Zw6Ht8hQH1mqzMACtA5gT1lpsxw5u5whaoFU/tIWHff6f8EVH6z+LeoRTlM7QA98v1igTYKLUB8dPHvgI7uS1NgKr6lvf53xujvfgPelwJ0seVbLsa1KgDQbweqaoxbAlSbpdazatoLabcVbfehKkGAPhDaU7+UwlK72kAUaj4IfB1Q1XcrhX40MJX8niOvfAJUETLtADWBqeEAVYRCuwtYLZf2ke144j5UJawunbRuA/Rij5ooVPSxbqP/74COBpCWBLeknV5DARpt2cFfHQtfOaN00xt3y+LpEXRrXrrelpzejjkCqArwVAAqONcOUJeYGA9QgJYJlN1dQaHllM51B9Ayf4ACtEyg7O4X2/AYZHgQL8oAAAAASUVORK5CYII=') 28 /  48px / 0 round;
+  border-style:  solid;   
 }
 
 #fountain {
@@ -14,8 +35,16 @@ body {
   height: 0;
 }
 
+
 #fountain > button {
   position: absolute;
+  border: none;
+  border-radius: 5px;
+  font-family: "Eagle Lake";
+  font-size: 3.5em;
+  background: linear-gradient(to right, blue, transparent),
+    url(https://grainy-gradients.vercel.app/noise.svg);
+  filter: contrast(170%) brightness(1000%);
 }
 
 </style>
@@ -36,7 +65,13 @@ const onAnimationFrame = () => {
       rotation: 0,
       rotationSpeed: Math.random() * 2 - 1,
     }
-    button.element.textContent = 'YEET';
+
+    // creates a list of strings
+    const words = ['digital', 'love', 'languages', '❀', '☹︎☻☺︎', '*:・ﾟ✧','♡'];
+    // creates a variable that equals a random string from the list abobve
+    const randomWordForButton = words[Math.floor(Math.random() * words.length)];
+    // sets the text of the current button to be the random string from our list of words
+    button.element.textContent = randomWordForButton;
 
     button.element.onmousedown = () => {
       button.ySpeed += -10;
