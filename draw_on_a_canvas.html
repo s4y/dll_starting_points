@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<style>
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+</style>
+<canvas id=canvas></canvas>
+<script>
+
+const ctx = canvas.getContext('2d');
+
+let draw = () => {
+
+  // This number goes up over time.
+  const now = Date.now() / 1000;
+
+  const width = canvas.width;
+  const height = canvas.height;
+
+  ctx.beginPath();
+  ctx.rect(0, 0, width, height);
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.fill();
+
+  let rotationAmount = now * 10 % (Math.PI * 2);
+
+  ctx.beginPath();
+  ctx.ellipse(
+    width / 2 + width / 4 * Math.sin(now * 11),
+    height / 2,
+    height / 2 * (Math.sin(now)/2+0.5),
+    height / 5,
+    rotationAmount,
+    0, Math.PI*2,
+  );
+  ctx.closePath();
+
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+};
+
+const onAnimationFrame = () => {
+  requestAnimationFrame(onAnimationFrame);
+  draw();
+}
+
+const resizeCanvas = () => {
+  canvas.width = canvas.clientWidth * devicePixelRatio;
+  canvas.height = canvas.clientHeight * devicePixelRatio;
+};
+
+resizeCanvas();
+
+window.addEventListener('resize', resizeCanvas);
+
+onAnimationFrame();
+
+</script>

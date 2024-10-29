@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<style>
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+</style>
+<canvas id=canvas></canvas>
+<script>
+
+// Start off with a function that does nothing.
+let drawFunction = () => {};
+
+const ctx = canvas.getContext('2d');
+
+const onAnimationFrame = () => {
+  requestAnimationFrame(onAnimationFrame);
+  drawFunction(canvas, ctx);
+}
+
+const resizeCanvas = () => {
+  canvas.width = canvas.clientWidth * devicePixelRatio;
+  canvas.height = canvas.clientHeight * devicePixelRatio;
+};
+
+resizeCanvas();
+
+window.addEventListener('resize', resizeCanvas);
+
+// This takes "code.js" and turns it into a full URL like:
+// http://127.0.0.1:8080/draw_on_a_canvas/code.js
+// …which is what we get from the "sourcechange" event,
+// which makes it easy to tell if the right file changed.
+const codeURL = (new URL('code.js', location)).href;
+
+const loadCode = async () => {
+  const response = await fetch(codeURL, { cache: 'reload' });
+  const text = await response.text();
+  drawFunction = new Function('canvas', 'ctx', text);
+}
+
+window.addEventListener('sourcechange', e => {
+  if (e.detail == codeURL) {
+    loadCode();
+    e.preventDefault();
+  }
+});
+
+loadCode();
+onAnimationFrame();
+
+</script>
