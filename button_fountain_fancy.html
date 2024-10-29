@@ -86,7 +86,7 @@ const onAnimationFrame = () => {
 
     button.ySpeed += 0.05;
 
-    button.element.style.transform = `translate(${button.x}px, ${button.y}px) rotate(${button.rotation}deg)`;
+    button.element.style.transform = `translate3d(${button.x}px, ${button.y}px, 0) rotate(${button.rotation}deg)`;
   }
 
   buttons = buttons.filter(button => {
