@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<input id=filename>.txt
+<div><textarea id=contents></textarea></div>
+<script type=module>
+
+import WSConnection from '/lib/WSConnection.js';
+
+let server = new WSConnection("http://127.0.0.1:10008");
+server.connect();
+
+filename.value = Math.floor(Math.random() * 0xFFFF).toString(16);
+
+const handleInput = () => {
+  server.send({
+    filename: filename.value,
+    contents: contents.value
+  });
+};
+
+filename.oninput = handleInput;
+contents.oninput = handleInput;
+
+</script>
